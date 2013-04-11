@@ -35,7 +35,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 								<a title="'.$data['guid'].'" href="'.$data['guid'].'" target="_blank">
 									'.Functions::truncate($data['title'],40).'
 								</a>		  
-								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:10px;">
+								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;">
 									<span title="marquer comme lu" alt="marquer comme lu">Lu</span>
 								</button>
 								</li>';
