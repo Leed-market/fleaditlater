@@ -4,7 +4,7 @@
 @author Idleman <idleman@idleman.fr>
 @link http://blog.idleman.fr
 @licence CC by nc sa http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
-@version 1.0.0
+@version 1.1.0
 @description Le plugin FleadItLater ajoute un bouton permettant de marquer un evenement comme "a lire plus tard" qui s'affichera dans un menu de droite.
 */
 
@@ -59,7 +59,6 @@ function fleaditlater_plugin_action($_,$myUser){
 	if(!$return) echo mysql_error();
 }
 
-Plugin::addCss("/css/style.css"); 
 Plugin::addJs("/js/main.js"); 
 // Ajout de la fonction au Hook situé dans les options d'évenements
 Plugin::addHook("event_post_top_options", "fleaditlater_plugin_AddButton");  
