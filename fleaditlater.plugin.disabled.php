@@ -4,7 +4,7 @@
 @author Idleman <idleman@idleman.fr>
 @link http://blog.idleman.fr
 @licence CC by nc sa http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
-@version 1.1.0
+@version 1.1.1
 @description Le plugin FleadItLater ajoute un bouton permettant de marquer un evenement comme "a lire plus tard" qui s'affichera dans un menu de droite.
 */
 
@@ -18,7 +18,7 @@ function fleaditlater_plugin_AddButton(&$event){
 }
 
 function fleaditlater_plugin_displayEvents(&$myUser){
-	$query = mysql_query('SELECT le.id,le.title,le.guid FROM '.MYSQL_PREFIX.'event le INNER JOIN '.MYSQL_PREFIX.'plugin_feaditlater fil ON (le.id=fil.event)');
+	$query = mysql_query('SELECT le.id,le.title,le.link FROM '.MYSQL_PREFIX.'event le INNER JOIN '.MYSQL_PREFIX.'plugin_feaditlater fil ON (le.id=fil.event)');
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				
@@ -32,7 +32,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 								
 									<img src="plugins/fleaditlater/img/read_icon.png">
 						
-								<a title="'.$data['guid'].'" href="'.$data['guid'].'" target="_blank">
+								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
 									'.Functions::truncate($data['title'],40).'
 								</a>		  
 								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;">
