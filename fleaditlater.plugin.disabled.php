@@ -28,25 +28,17 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 						<ul> ';
 							
 							while($data = mysql_fetch_array($query)){
-							echo '	<li>
-										<table style="width:100%;">
-											<tr>
-												<td style="text-align:left;width:25px;">
-													<img src="plugins/fleaditlater/img/read_icon.png">
-												</td>
-												<td style="text-align:left;">
-													<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
-														'.Functions::truncate($data['title'],38).'
-													</a>
-												</td>
-												<td style="text-align:right;">
-													<button onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;">
-														<span title="marquer comme lu" alt="marquer comme lu">Lu</span>
-													</button>
-												</td>
-											</tr>
-										</table>
-									</li>';
+							echo '<li> 
+								
+									<img src="plugins/fleaditlater/img/read_icon.png">
+						
+								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
+									'.Functions::truncate($data['title'],38).'
+								</a>		  
+								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;">
+									<span title="marquer comme lu" alt="marquer comme lu">Lu</span>
+								</button>
+								</li>';
 							}
 
 						echo '</ul>
