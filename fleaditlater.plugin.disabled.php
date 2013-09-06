@@ -28,14 +28,14 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 						<ul> ';
 							
 							while($data = mysql_fetch_array($query)){
-							echo '<li> 
+							echo '<li>
 								
-									<img src="plugins/fleaditlater/img/read_icon.png">
+                                <img src="plugins/fleaditlater/img/read_icon.png">
 						
 								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
 									'.Functions::truncate($data['title'],38).'
-								</a>		  
-								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;">
+								</a>	  
+								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;margin-top:5px;">
 									<span title="marquer comme lu" alt="marquer comme lu">Lu</span>
 								</button>
 								</li>';
