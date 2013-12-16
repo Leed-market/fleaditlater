@@ -52,12 +52,14 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 
 function fleaditlater_plugin_action($_,$myUser){
 	if($myUser==false) exit('Vous devez vous connecter pour cette action.');
-	if($_['state']=='add'){
-		$return = mysql_query('INSERT INTO '.MYSQL_PREFIX.'plugin_feaditlater (event)VALUES(\''.$_['id'].'\')');
-	}else{
-		$return = mysql_query('DELETE FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event=\''.$_['id'].'\'');
+	if (isset($_['id'])){
+		if(isset($_['state']) && $_['state']=='add'){
+			$return = mysql_query('INSERT INTO '.MYSQL_PREFIX.'plugin_feaditlater (event)VALUES(\''.$_['id'].'\')');
+		}else{
+			$return = mysql_query('DELETE FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event=\''.$_['id'].'\'');
+		}
+		if(!$return) echo mysql_error();
 	}
-	if(!$return) echo mysql_error();
 }
 
 Plugin::addJs("/js/main.js"); 
