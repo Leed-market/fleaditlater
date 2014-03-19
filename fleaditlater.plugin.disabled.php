@@ -4,7 +4,7 @@
 @author Idleman <idleman@idleman.fr>
 @link http://blog.idleman.fr
 @licence CC by nc sa http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
-@version 1.1.2
+@version 1.1.3
 @description Le plugin FleadItLater ajoute un bouton permettant de marquer un evenement comme "a lire plus tard" qui s'affichera dans un menu de droite.
 */
 
@@ -51,15 +51,17 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 }
 
 function fleaditlater_plugin_action($_,$myUser){
-	if($myUser==false) exit('Vous devez vous connecter pour cette action.');
-	if (isset($_['id'])){
-		if(isset($_['state']) && $_['state']=='add'){
-			$return = mysql_query('INSERT INTO '.MYSQL_PREFIX.'plugin_feaditlater (event)VALUES(\''.$_['id'].'\')');
-		}else{
-			$return = mysql_query('DELETE FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event=\''.$_['id'].'\'');
-		}
-		if(!$return) echo mysql_error();
-	}
+	if ($_['action']=='fleadItLater') {
+        if($myUser==false) exit('Vous devez vous connecter pour cette action.');
+        if (isset($_['id'])){
+            if(isset($_['state']) && $_['state']=='add'){
+                $return = mysql_query('INSERT INTO '.MYSQL_PREFIX.'plugin_feaditlater (event)VALUES(\''.$_['id'].'\')');
+            }else{
+                $return = mysql_query('DELETE FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event=\''.$_['id'].'\'');
+            }
+            if(!$return) echo mysql_error();
+        }
+    }
 }
 
 Plugin::addJs("/js/main.js"); 
