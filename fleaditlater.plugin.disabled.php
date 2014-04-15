@@ -10,7 +10,7 @@
 
 function fleaditlater_plugin_AddButton(&$event){
 	$eventId = $event->getId();
-	$count = mysql_query('SELECT COUNT(id) FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event='.$eventId);
+	$count = mysql_query('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$eventId);
 	$count = mysql_fetch_row($count);
 	if(!$count[0]){
     	        echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$eventId.',\'add\',this);">Lire + Tard</a>&nbsp;';
@@ -19,7 +19,7 @@ function fleaditlater_plugin_AddButton(&$event){
 }
 
 function fleaditlater_plugin_displayEvents(&$myUser){
-	$query = mysql_query('SELECT le.id,le.title,le.link FROM '.MYSQL_PREFIX.'event le INNER JOIN '.MYSQL_PREFIX.'plugin_feaditlater fil ON (le.id=fil.event)');
+	$query = mysql_query('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN '.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				
@@ -55,9 +55,9 @@ function fleaditlater_plugin_action($_,$myUser){
         if($myUser==false) exit('Vous devez vous connecter pour cette action.');
         if (isset($_['id'])){
             if(isset($_['state']) && $_['state']=='add'){
-                $return = mysql_query('INSERT INTO '.MYSQL_PREFIX.'plugin_feaditlater (event)VALUES(\''.$_['id'].'\')');
+                $return = mysql_query('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event)VALUES(\''.$_['id'].'\')');
             }else{
-                $return = mysql_query('DELETE FROM '.MYSQL_PREFIX.'plugin_feaditlater WHERE event=\''.$_['id'].'\'');
+                $return = mysql_query('DELETE FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event=\''.$_['id'].'\'');
             }
             if(!$return) echo mysql_error();
         }
