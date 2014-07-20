@@ -19,7 +19,7 @@ function fleaditlater_plugin_AddButton(&$event){
 }
 
 function fleaditlater_plugin_displayEvents(&$myUser){
-	$query = mysql_query('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN '.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
+	$query = mysql_query('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN `'.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				
