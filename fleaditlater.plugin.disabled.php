@@ -4,7 +4,7 @@
 @author Idleman <idleman@idleman.fr>
 @link http://blog.idleman.fr
 @licence CC by nc sa http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
-@version 1.1.3
+@version 1.1.4
 @description Le plugin FleadItLater ajoute un bouton permettant de marquer un evenement comme "a lire plus tard" qui s'affichera dans un menu de droite.
 */
 
@@ -13,8 +13,8 @@ function fleaditlater_plugin_AddButton(&$event){
 	$count = mysql_query('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$eventId);
 	$count = mysql_fetch_row($count);
 	if(!$count[0]){
-    	        echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$eventId.',\'add\',this);">Lire + Tard</a>&nbsp;';
-		//echo '<div  onclick="fleadItLater('.$eventId.',\'add\',this);" class="fleaditLaterButton">Lire + Tard</div>';
+    	        echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$eventId.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
+		//echo '<div  onclick="fleadItLater('.$eventId.',\'add\',this);" class="fleaditLaterButton">'._t('P_FLEADITLATER_READLATER').'</div>';
 	}
 }
 
@@ -23,7 +23,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				
-				<h3 class="left">A lire</h3>
+				<h3 class="left">'._t('P_FLEADITLATER_TOREAD').'</h3>
 					<ul class="clear">  							  								  							  							  								  	
 					<li>
 						<ul> ';
@@ -37,7 +37,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 									'.Functions::truncate($data['title'],38).'
 								</a>	  
 								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;margin-top:5px;">
-									<span title="marquer comme lu" alt="marquer comme lu">Lu</span>
+									<span title="'._t('P_FLEADITLATER_MARK_AS_READ').'" alt="'._t('P_FLEADITLATER_MARK_AS_READ').'">'._t('P_FLEADITLATER_MARK_AS_READ_SHORT').'</span>
 								</button>
 								</li>';
 							}
@@ -52,7 +52,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 
 function fleaditlater_plugin_action($_,$myUser){
 	if ($_['action']=='fleadItLater') {
-        if($myUser==false) exit('Vous devez vous connecter pour cette action.');
+        if($myUser==false) exit(_t('P_FLEADITLATER_NOT_CONNECTED_ERROR'));
         if (isset($_['id'])){
             if(isset($_['state']) && $_['state']=='add'){
                 $return = mysql_query('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event)VALUES(\''.$_['id'].'\')');
