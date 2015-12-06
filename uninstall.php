@@ -1,5 +1,6 @@
 <?php
 
-mysql_query('DROP TABLE `'.MYSQL_PREFIX.'plugin_feaditlater`');
+$mysqli = new MysqlEntity();
+$mysqli->customQuery('DROP TABLE `'.MYSQL_PREFIX.'plugin_feaditlater`');
 
 ?>

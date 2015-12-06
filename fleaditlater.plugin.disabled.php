@@ -9,17 +9,19 @@
 */
 
 function fleaditlater_plugin_AddButton(&$event){
-	$eventId = $event->getId();
-	$count = mysql_query('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$eventId);
-	$count = mysql_fetch_row($count);
+	$mysqli = new MysqlEntity();
+	$id = $mysqli->escape_string($event->getId());
+	$count = $mysqli->customQuery('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$id);
+	$count = $count->fetch_row();
 	if(!$count[0]){
-    	        echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$eventId.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
+                echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$id.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
 		//echo '<div  onclick="fleadItLater('.$eventId.',\'add\',this);" class="fleaditLaterButton">'._t('P_FLEADITLATER_READLATER').'</div>';
 	}
 }
 
 function fleaditlater_plugin_displayEvents(&$myUser){
-	$query = mysql_query('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN `'.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
+	$mysqli = new MysqlEntity();
+	$query = $mysqli->customQuery('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN `'.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				
@@ -28,7 +30,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 					<li>
 						<ul> ';
 							
-							while($data = mysql_fetch_array($query)){
+							while($data = $query->fetch_array()){
 							echo '<li>
 								
 								<img src="plugins/fleaditlater/img/read_icon.png">
@@ -51,15 +53,17 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 }
 
 function fleaditlater_plugin_action($_,$myUser){
+	$mysqli = new MysqlEntity();
 	if ($_['action']=='fleadItLater') {
         if($myUser==false) exit(_t('P_FLEADITLATER_NOT_CONNECTED_ERROR'));
         if (isset($_['id'])){
+            $id = $mysqli->escape_string($_['id']);
             if(isset($_['state']) && $_['state']=='add'){
-                $return = mysql_query('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event)VALUES(\''.$_['id'].'\')');
+                $return = $mysqli->customQuery('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event)VALUES(\''.$id.'\')');
             }else{
-                $return = mysql_query('DELETE FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event=\''.$_['id'].'\'');
+                $return = $mysqli->customQuery('DELETE FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event=\''.$id.'\'');
             }
-            if(!$return) echo mysql_error();
+            if(!$return) echo $mysqli->error;
         }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-mysql_query('
+$mysqli = new MysqlEntity();
+$mysqli->customQuery('
 
 CREATE TABLE IF NOT EXISTS `'.MYSQL_PREFIX.'plugin_feaditlater` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
