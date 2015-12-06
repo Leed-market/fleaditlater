@@ -14,8 +14,7 @@ function fleaditlater_plugin_AddButton(&$event){
 	$count = $mysqli->customQuery('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$id);
 	$count = $count->fetch_row();
 	if(!$count[0]){
-                echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$id.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
-		//echo '<div  onclick="fleadItLater('.$eventId.',\'add\',this);" class="fleaditLaterButton">'._t('P_FLEADITLATER_READLATER').'</div>';
+        echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$id.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
 	}
 }
 
@@ -24,7 +23,6 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 	$query = $mysqli->customQuery('SELECT le.id,le.title,le.link FROM `'.MYSQL_PREFIX.'event` le INNER JOIN `'.MYSQL_PREFIX.'plugin_feaditlater` fil ON (le.id=fil.event)');
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
-				
 				<h3 class="left">'._t('P_FLEADITLATER_TOREAD').'</h3>
 					<ul class="clear">  							  								  							  							  								  	
 					<li>
@@ -41,6 +39,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;margin-top:5px;">
 									<span title="'._t('P_FLEADITLATER_MARK_AS_READ').'" alt="'._t('P_FLEADITLATER_MARK_AS_READ').'">'._t('P_FLEADITLATER_MARK_AS_READ_SHORT').'</span>
 								</button>
+
 								</li>';
 							}
 
