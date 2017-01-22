@@ -4,7 +4,7 @@
 @author Idleman <idleman@idleman.fr>
 @link http://blog.idleman.fr
 @licence CC by nc sa http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
-@version 1.1.4
+@version 1.1.5
 @description Le plugin FleadItLater ajoute un bouton permettant de marquer un evenement comme "a lire plus tard" qui s'affichera dans un menu de droite.
 */
 
@@ -24,27 +24,21 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 	if($query!=null){
 	echo '<aside class="fleaditLaterMenu">
 				<h3 class="left">'._t('P_FLEADITLATER_TOREAD').'</h3>
-					<ul class="clear">  							  								  							  							  								  	
+					<ul class="clear">
 					<li>
 						<ul> ';
-							
 							while($data = $query->fetch_array()){
 							echo '<li>
-								
 								<img src="plugins/fleaditlater/img/read_icon.png">
-						
 								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
-									'.Functions::truncate($data['title'],38).'
-								</a>	  
-								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)" style="margin-left:5px;margin-top:5px;">
+									'.Functions::truncate($data['title'],37).'
+								</a>
+								<button class="right unreadForFeed" onclick="fleadItLater('.$data['id'].',\'delete\',this)">
 									<span title="'._t('P_FLEADITLATER_MARK_AS_READ').'" alt="'._t('P_FLEADITLATER_MARK_AS_READ').'">'._t('P_FLEADITLATER_MARK_AS_READ_SHORT').'</span>
 								</button>
-
 								</li>';
 							}
-
 						echo '</ul>
-						
 					</li>
 				</ul>
 			</aside>';
