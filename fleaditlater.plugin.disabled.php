@@ -33,7 +33,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
 									'.Functions::truncate($data['title'],37).'
 								</a>
-								<button class="right unreadForFeed" onclick="fleadItLater('.$data['id'].',\'delete\',this)">
+								<button class="right" onclick="fleadItLater('.$data['id'].',\'delete\',this)">
 									<span title="'._t('P_FLEADITLATER_MARK_AS_READ').'" alt="'._t('P_FLEADITLATER_MARK_AS_READ').'">'._t('P_FLEADITLATER_MARK_AS_READ_SHORT').'</span>
 								</button>
 								</li>';
