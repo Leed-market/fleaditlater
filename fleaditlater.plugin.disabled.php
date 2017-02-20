@@ -12,7 +12,7 @@ function fleaditlater_plugin_AddButton(&$event){
 	$mysqli = new MysqlEntity();
 	$id = $mysqli->escape_string($event->getId());
 	$count = $mysqli->customQuery('SELECT COUNT(id) FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$id);
-	$count = $count->fetch_row();
+	$count = $count->fetch(PDO::FETCH_NUM);
 	if(!$count[0]){
         echo '<a class="pointer fleaditLaterButton" onclick="fleadItLater('.$id.',\'add\',this);">'._t('P_FLEADITLATER_READLATER').'</a>&nbsp;';
 	}
@@ -27,7 +27,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 					<ul class="clear">
 					<li>
 						<ul> ';
-							while($data = $query->fetch_array()){
+							while($data = $query->fetch(PDO::FETCH_ASSOC)){
 							echo '<li>
 								<img src="plugins/fleaditlater/img/read_icon.png">
 								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
@@ -52,9 +52,9 @@ function fleaditlater_plugin_action($_,$myUser){
         if (isset($_['id'])){
             $id = $mysqli->escape_string($_['id']);
             if(isset($_['state']) && $_['state']=='add'){
-                $return = $mysqli->customQuery('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event)VALUES(\''.$id.'\')');
+                $return = $mysqli->customQuery('INSERT INTO `'.MYSQL_PREFIX.'plugin_feaditlater` (event) VALUES('.$id.')');
             }else{
-                $return = $mysqli->customQuery('DELETE FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event=\''.$id.'\'');
+                $return = $mysqli->customQuery('DELETE FROM `'.MYSQL_PREFIX.'plugin_feaditlater` WHERE event='.$id);
             }
             if(!$return) echo $mysqli->error;
         }
