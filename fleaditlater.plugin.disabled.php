@@ -29,7 +29,7 @@ function fleaditlater_plugin_displayEvents(&$myUser){
 						<ul> ';
 							while($data = $query->fetch_array()){
 							echo '<li>
-								<img src="plugins/fleaditlater/img/read_icon.png">
+								<img src="plugins/fleaditlater/img/read_icon.png" width="16" height="11">
 								<a title="'.$data['link'].'" href="'.$data['link'].'" target="_blank">
 									'.Functions::truncate($data['title'],37).'
 								</a>
